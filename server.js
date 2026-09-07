@@ -30,7 +30,7 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const response = await client.responses.create({
-      model: "gpt-5",
+      model: "gpt-5.6-luna",
       input: messages
     });
 
@@ -39,7 +39,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("OpenAI Error:", error);
 
     res.status(500).json({
       error: "حدث خطأ في الاتصال بالذكاء الاصطناعي."
@@ -47,5 +47,8 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
